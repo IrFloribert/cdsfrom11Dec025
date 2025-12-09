@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Inspection<bi.gov.otraco.ct.orientation>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "bi.gov.otraco.ct.orientation.Inspection",
+            "projectName": "bi.gov.otraco.ct.orientation",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
