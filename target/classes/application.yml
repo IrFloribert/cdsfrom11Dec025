@@ -1,7 +1,0 @@
-server:
-  port: 9200
-
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/OTRACO_CT_INSPECTION

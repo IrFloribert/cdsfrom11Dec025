@@ -1,22 +1,25 @@
 package bi.gov.otraco.ct.orientation.query.api.response;
 import java.io.Serializable;
 public record OrientationResponse(
-    String orientationCode,
-    String plateNo,
-    String chassisNo,
-    String ownerName,
-
-    String tinNo,
-    String receiptNo,
-    String vehicleType,
-    String createdDate,
-    String branchName,
-
-
-    String orientationNumber,
-    String paymentNumber,
-    String orientationLine,
-    String orientationStatus
+        String orientationCode,
+        String receiptNo,
+        String paymentNo,
+        String chassisNo,
+        String plateNo,
+        String ownerName,
+        String tinNo,
+        String orientationLineCode,
+        String orientationLineName,
+        String orientationStatus,
+        String branchCode,
+        String branchName,
+        String userCode,
+        String userName,
+        String logCreated,
+        String vehicleType,
+        String ownerCategory,
+        String invoiceNumber,
+        String paymentStatus
 
 
 

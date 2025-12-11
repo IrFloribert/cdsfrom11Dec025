@@ -47,23 +47,15 @@ public Flux<OrientationResponse> findAllBybranchCodeToday(FindByCode query) {
 
     private OrientationResponse toAgencyDailyDisplay(Orientation o) {
         return new OrientationResponse(
+                o.getOrientationCode(),
+                o.getReceiptNo(),
+                o.getPaymentNo(),
+                o.getChassisNo(),
+                o.getPlateNo(),
+                o.getOwnerName(),o.getTinNo(),o.getOrientationLineCode(),o.getOrientationLineName(),o.getOrientationStatus(),o.getBranchCode(),
+                o.getBranchName(),o.getUserCode(),o.getUserName(),o.getLogCreated(),o.getVehicleType(),o.getOwnerCategory(),o.getInvoiceNumber(),
+                o.getPaymentStatus()
 
-            o.getOrientationCode(),
-            o.getPlateNo(),
-            o.getChassisNo(),
-            o.getOwnerName(),
-     
-        
-            o.getTinNo(),
-            o.getReceiptNo(),
-            o.getVehicleType(),
-            o.getLogCreated(),
-            o.getBranchName(),
-        
-            o.getOrientationNumber(),
-            o.getPaymentNo(),
-            o.getOrientationLineName(),
-            o.getOrientationStatus()
         
 
             
