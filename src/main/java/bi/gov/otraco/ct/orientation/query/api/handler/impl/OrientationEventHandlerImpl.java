@@ -2,7 +2,7 @@ package bi.gov.otraco.ct.orientation.query.api.handler.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationCreatedCommand;
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationStatusCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationUpdatedCommand;
+import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationUpdatedComboCommand;
 import bi.gov.otraco.ct.orientation.core.common.LogCreated;
 import bi.gov.otraco.ct.orientation.core.common.OrientationStatus;
 import bi.gov.otraco.ct.orientation.core.model.Orientation;
@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 import java.util.UUID;
 @Component
 @Service
@@ -39,18 +41,16 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
                 .tinNo(command.tinNo())
                 .orientationLineCode("")
                 .orientationLineName("")
-                .orientationStatus(command.orientationStatus())
+                .orientationStatus(OrientationStatus.enable())
                 .branchCode(command.branchCode())
                 .branchName(command.branchName())
                 .userCode(command.userCode())
                 .userName(command.userName())
-                .logCreated(LogCreated.At())
-                    .ownerCategory(command.ownerCategory())
-                    .invoiceNumber("IN6576775666")
-                    .paymentStatus("PS001")
-
+                .logCreatedAt(LogCreated.At())
+                .ownerCategory(command.ownerCategory())
+                .invoiceNumber(command.invoiceNumber())
+                .paymentStatus("PS001")
                 .vehicleType(command.vehicleType())
-
                 .build();
             return orientationRepository.save(o).map(saved -> ResponseEntity.status(HttpStatus.CREATED).body(saved));
         }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()))
@@ -58,22 +58,16 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
     }
 
     @Override
-    public Mono<ResponseEntity<Orientation>> update(OrientationUpdatedCommand command) {
-        return orientationRepository.findByOrientationCode(command.orientationCode()).flatMap(o -> {
-            o.setReceiptNo(command.receiptNo());
-            o.setPaymentNo(command.paymentNo());
-            o.setChassisNo(command.chassisNo());
-            o.setPlateNo(command.plateNo());
-            o.setOwnerName(command.ownerName());
-            o.setTinNo(command.tinNo());
-            o.setOrientationLineCode(command.orientationLineCode());
-            o.setOrientationLineName(command.orientationLineName());
-            o.setOrientationStatus(command.orientationStatus());
-            o.setBranchCode(command.branchCode());
-            o.setBranchName(command.branchName());
-            o.setUserCode(command.userCode());
-            o.setUserName(command.userName());
-            o.setLogCreated(LogCreated.At());
+    public Mono<ResponseEntity<Orientation>> updateTowardsCombo(OrientationUpdatedComboCommand command) {
+        return orientationRepository.findByOrientationCode(command.qr()).flatMap(o -> {
+
+            o.setOrientationLineCode(command.lineCode());
+            if (Objects.equals(command.lineCode(), "OL001"))
+                o.setOrientationLineName("LMV");
+            if (Objects.equals(command.lineCode(), "OL002"))
+                o.setOrientationLineName("COMBO");
+            if (Objects.equals(command.lineCode(), "OL003"))
+                o.setOrientationLineName("MOTO");
             return orientationRepository.save(o).map(saved -> ResponseEntity.ok().body(saved));
         }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()))
           .onErrorResume(ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
@@ -88,7 +82,7 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
             .flatMap(orientation -> {
                 orientation.setOrientationStatus(OrientationStatus.disable());
                 return orientationRepository.save(orientation);})
-                
+
             .map(saved -> ResponseEntity.ok(saved))
             .onErrorResume(ResponseStatusException.class,
                 ex -> Mono.just(ResponseEntity.status(ex.getStatusCode()).build()))

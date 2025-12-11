@@ -17,4 +17,6 @@ public interface NatureRepository extends ReactiveMongoRepository<Nature, String
     @Query(value = "{}", sort = "{'logCreated':-1}")
     Flux<Nature> findByLogCreatedDesc();
     Mono<Nature> findByCode(@Param("code") String code);
+    Mono<Boolean> existsByReceiptNo(@Param("receiptNo") String receiptNo);
+    Mono<Nature> findByReceiptNo(@Param("receiptNo") String receiptNo);
 }

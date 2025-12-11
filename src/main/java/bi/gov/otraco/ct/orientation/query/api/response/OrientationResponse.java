@@ -1,6 +1,7 @@
 package bi.gov.otraco.ct.orientation.query.api.response;
 import java.io.Serializable;
 public record OrientationResponse(
+        String orientationId,
         String orientationCode,
         String receiptNo,
         String paymentNo,
@@ -10,7 +11,6 @@ public record OrientationResponse(
         String tinNo,
         String orientationLineCode,
         String orientationLineName,
-        String orientationStatus,
         String branchCode,
         String branchName,
         String userCode,
@@ -19,7 +19,8 @@ public record OrientationResponse(
         String vehicleType,
         String ownerCategory,
         String invoiceNumber,
-        String paymentStatus
+        String paymentStatus,
+        String qr
 
 
 

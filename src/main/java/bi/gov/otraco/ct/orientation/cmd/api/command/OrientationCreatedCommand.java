@@ -39,9 +39,6 @@ public record OrientationCreatedCommand(
         @Schema(description = "Numéro d'identification fiscale", example = "TIN123456789", requiredMode = Schema.RequiredMode.REQUIRED)
         String tinNo,
 
-        @NotNull(message = "Le statut d'orientation ne doit pas être nul")
-        @Schema(description = "Statut de l'orientation", example = "CREATED", requiredMode = Schema.RequiredMode.REQUIRED)
-        String orientationStatus,
 
         @NotNull(message = "Le code d'agence ne doit pas être nul")
         @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code d'agence doit contenir au moins 6 caractères alphanumériques majuscules")
@@ -63,6 +60,10 @@ public record OrientationCreatedCommand(
         @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
         String userName,
 
+        @NotNull(message ="ne doit pas être nul")
+        @Schema(description = "Numéro de facture", example = "INV2025000789", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        String invoiceNumber,
+
 
         @NotNull(message ="ne doit pas être nul")
         @Schema(description = "Catégorie du propriétaire", example = "PARTICULIER", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
@@ -71,9 +72,7 @@ public record OrientationCreatedCommand(
 ) implements Serializable {}
 
 
-//        @NotNull(message ="ne doit pas être nul")
-//        @Schema(description = "Numéro de facture", example = "INV2025000789", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-//        String invoiceNumber,
+
 //        @NotNull(message ="ne doit pas être nul")
 //        @Schema(description = "Statut du paiement", example = "PENDING", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
 //        String paymentStatus

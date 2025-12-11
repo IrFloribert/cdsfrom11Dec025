@@ -1,5 +1,6 @@
 package bi.gov.otraco.ct.orientation.query.api.controller;
 
+import bi.gov.otraco.ct.orientation.cmd.api.command.FindByCode;
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindNatureByCode;
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindNatureByPlateNo;
 import bi.gov.otraco.ct.orientation.query.api.dto.AllNatureResponse;
@@ -44,5 +45,14 @@ public class NatureLookupController {
         return queryHandler.findByPlateNo(query.plateNo())
             .map(o -> new LookupNatureResponse(true, o))
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Nature not found")));
+    }
+
+
+    @Operation(summary = "Get nature by QR")
+    @PutMapping(path = "get-nature-by-qr", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<LookupNatureResponse> getByPlateNo(@Valid @RequestBody FindByCode query) {
+        return queryHandler.findByQR(query.code())
+                .map(o -> new LookupNatureResponse(true, o))
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Nature QR not found")));
     }
 }

@@ -11,14 +11,15 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface OrientationRepository extends ReactiveMongoRepository<Orientation, String> {
     Mono<Boolean> existsByOrientationCode(@Param("orientationCode") String orientationCode);
+    Mono<Boolean> existsByOrientationLineCode(@Param("lineCode") String lineCode);
     Mono<Orientation> findByOrientationCode(@Param("orientationCode") String orientationCode);
     @Query(value = "{}", sort = "{'orientationCode':-1}")
-    Flux<Orientation> findByOrientationCodeDesc();    
-    @Query(value = "{ 'log_created': { $regex: '^?0' } }", sort = "{'log_created':-1}")
-    Flux<Orientation> findAllToday(@Param("0") String datePattern);
+    Flux<Orientation> findByOrientationCodeDesc();
     Flux<Orientation>  findAllBybranchCode(@Param("agence") String agence);
-    @Query(value = "{ $and: [ { 'log_created': { $regex: '^?0' } }, { 'branch_code': ?1 } ] }", sort = "{'log_created':-1}")
-    Flux<Orientation> findAllTodayBybranchCode(@Param("date") String date, @Param("agency") String agency);
+//    Flux<Orientation> findByBranchCode(@Param("date") String date, @Param("branchCode") String branchCode);
+    Flux<Orientation> findByLogCreatedAt(@Param("date") String date);
 
 
+    @Query("{ 'log_created_at' : ?0, 'branch_code' : ?1 }")
+    Flux<Orientation> findByBranchCode(String date, String branchCode);
 }
