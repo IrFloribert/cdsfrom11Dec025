@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("bi/gov/otraco/ct/nature/lookup")
+@RequestMapping("/api/v1/otraco/certificate/nature/lookup")
 @Tag(name = "Nature")
 @RequiredArgsConstructor
 public class NatureLookupController {

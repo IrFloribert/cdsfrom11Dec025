@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("bi/gov/otraco/ct/nature/create")
+@RequestMapping("/api/v1/otraco/certificate/nature/create")
 @Tag(name = "Nature")
 public class CreateNatureController {
     private final NaturePayload payload;

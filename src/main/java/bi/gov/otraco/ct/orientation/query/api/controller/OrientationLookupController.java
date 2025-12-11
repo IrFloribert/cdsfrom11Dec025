@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("bi/gov/otraco/ct/orientation/lookup")
+@RequestMapping("/api/v1/otraco/certificate/orientation/lookup")
 @Tag(name = "Orientation")
 @RequiredArgsConstructor
 public class OrientationLookupController {

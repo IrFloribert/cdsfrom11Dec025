@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("bi/gov/otraco/ct/orientation/update")
+@RequestMapping("/api/v1/otraco/certificate/orientation/update")
 @Tag(name = "Orientation")
 public class UpdateOrientationController {
     private final OrientationPayload payload;

@@ -17,7 +17,7 @@
 // import reactor.core.publisher.Mono;
 
 // @RestController
-// @RequestMapping("bi/gov/otraco/ct/orientation/disable")
+// @RequestMapping("/api/v1/otraco/certificate/orientation/disable")
 // @Tag(name = "Orientation")
 // @RequiredArgsConstructor  // This will generate a constructor for final fields
 // public class DisableOrientationController {

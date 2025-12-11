@@ -39,16 +39,6 @@ public record OrientationCreatedCommand(
         @Schema(description = "Numéro d'identification fiscale", example = "TIN123456789", requiredMode = Schema.RequiredMode.REQUIRED)
         String tinNo,
 
-        @NotNull(message = "Le code de ligne d'orientation ne doit pas être nul")
-        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code de ligne d'orientation doit contenir au moins 6 caractères alphanumériques majuscules")
-        @Schema(description = "Code de ligne d'orientation", example = "ORL30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
-        String orientationLineCode,
-
-        @NotNull(message = "Le nom de la ligne d'orientation ne doit pas être nul")
-        @Pattern(regexp = "^[\\p{L}0-9 .'-]{2,60}$", message = "Le nom de la ligne d'orientation doit contenir entre 2 et 60 caractères")
-        @Schema(description = "Nom de la ligne d'orientation", example = "Ligne de Contrôle Technique A", requiredMode = Schema.RequiredMode.REQUIRED)
-        String orientationLineName,
-
         @NotNull(message = "Le statut d'orientation ne doit pas être nul")
         @Schema(description = "Statut de l'orientation", example = "CREATED", requiredMode = Schema.RequiredMode.REQUIRED)
         String orientationStatus,
@@ -72,10 +62,24 @@ public record OrientationCreatedCommand(
         @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
         @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
         String userName,
-         @NotNull(message = "Le nom d'utilisateur ne doit pas être nul")
-        @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
-        @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
-        String deliveredTo
 
-       
+
+        @NotNull(message ="ne doit pas être nul")
+        @Schema(description = "Catégorie du propriétaire", example = "PARTICULIER", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        String ownerCategory
+
 ) implements Serializable {}
+
+
+//        @NotNull(message ="ne doit pas être nul")
+//        @Schema(description = "Numéro de facture", example = "INV2025000789", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+//        String invoiceNumber,
+//        @NotNull(message ="ne doit pas être nul")
+//        @Schema(description = "Statut du paiement", example = "PENDING", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+//        String paymentStatus
+
+
+//        @NotNull(message = "Le nom d'utilisateur ne doit pas être nul")
+//        @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
+//        @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
+//        String deliveredTo,

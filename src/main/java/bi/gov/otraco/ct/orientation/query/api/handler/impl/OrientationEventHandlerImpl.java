@@ -37,15 +37,20 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
                 .plateNo(command.plateNo())
                 .ownerName(command.ownerName())
                 .tinNo(command.tinNo())
-                .orientationLineCode(command.orientationLineCode())
-                .orientationLineName(command.orientationLineName())
+                .orientationLineCode("")
+                .orientationLineName("")
                 .orientationStatus(command.orientationStatus())
                 .branchCode(command.branchCode())
                 .branchName(command.branchName())
                 .userCode(command.userCode())
                 .userName(command.userName())
                 .logCreated(LogCreated.At())
+                    .ownerCategory(command.ownerCategory())
+                    .invoiceNumber("IN6576775666")
+                    .paymentStatus("PS001")
+
                 .vehicleType(command.vehicleType())
+
                 .build();
             return orientationRepository.save(o).map(saved -> ResponseEntity.status(HttpStatus.CREATED).body(saved));
         }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()))
