@@ -25,6 +25,11 @@ public record OrientationCreatedCommand(
         @Schema(description = "Numéro de plaque d'immatriculation du véhicule", example = "ABC-1234", requiredMode = Schema.RequiredMode.REQUIRED)
         String plateNo,
 
+        @NotNull(message = "Le nom d'utilisateur ne doit pas être nul")
+        @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
+        @Schema(description = "Type Vehicule", example = "Type", requiredMode = Schema.RequiredMode.REQUIRED)
+        String vehicleType,
+
         @NotNull(message = "Le nom du propriétaire ne doit pas être nul")
         @Pattern(regexp = "^[\\p{L}0-9 .'-]{2,60}$", message = "Le nom du propriétaire doit contenir entre 2 et 60 caractères")
         @Schema(description = "Nom complet du propriétaire", example = "Jean Dupont", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -51,12 +56,12 @@ public record OrientationCreatedCommand(
         @NotNull(message = "Le code d'agence ne doit pas être nul")
         @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code d'agence doit contenir au moins 6 caractères alphanumériques majuscules")
         @Schema(description = "Code d'agence", example = "AG30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
-        String agencyCode,
+        String branchCode,
 
         @NotNull(message = "Le nom de l'agence ne doit pas être nul")
         @Pattern(regexp = "^[\\p{L}0-9 .'-]{2,60}$", message = "Le nom de l'agence doit contenir entre 2 et 60 caractères")
         @Schema(description = "Nom de l'agence", example = "Agence Centrale OTRACO", requiredMode = Schema.RequiredMode.REQUIRED)
-        String agencyName,
+        String branchName,
 
         @NotNull(message = "Le code utilisateur ne doit pas être nul")
         @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code utilisateur doit contenir au moins 6 caractères alphanumériques majuscules")
@@ -67,7 +72,10 @@ public record OrientationCreatedCommand(
         @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
         @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
         String userName,
+         @NotNull(message = "Le nom d'utilisateur ne doit pas être nul")
+        @Pattern(regexp = "^[\\p{L}0-9._-]{2,30}$", message = "Le nom d'utilisateur doit contenir entre 2 et 30 caractères")
+        @Schema(description = "Nom d'utilisateur de l'opérateur", example = "jane.dupont", requiredMode = Schema.RequiredMode.REQUIRED)
+        String deliveredTo
 
-        @Schema(description = "Journal de création ou commentaire", example = "Créé via API")
-        String logCreated
+       
 ) implements Serializable {}

@@ -35,8 +35,8 @@ public class NatureResponse {
     private String wheels;
     private String wheelsType;
     private String bridge;
-    private String agencyCode;
-    private String agencyName;
+    private String branchCode;
+    private String branchName;
     private String logCreated;
     private String validStatus;
 

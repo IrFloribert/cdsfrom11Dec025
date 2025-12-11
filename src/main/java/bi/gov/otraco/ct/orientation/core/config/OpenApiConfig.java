@@ -20,7 +20,7 @@ public class OpenApiConfig {
         devServer.setUrl("http://127.0.0.1:9200");
         devServer.setDescription("Server URL development environment");
         var prodServer = new Server();
-        prodServer.setUrl("http://192.168.80.248:9200");
+        prodServer.setUrl("http://192.168.80.38:9200");
         prodServer.setDescription("Server URL production environment");
         var contact = new Contact();
         contact.setEmail("biwep@gmail.com");

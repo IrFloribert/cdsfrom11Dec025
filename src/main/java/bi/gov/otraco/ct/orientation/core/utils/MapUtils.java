@@ -6,6 +6,8 @@ public class MapUtils {
     public static String update = "Opération mise à jour avec succès!";
     public static String delete = "Opération supprimée avec succès!";
     public static String success = "Opération réussie!";
+    public static String disable = "Désactivation réussie!";
+    public static String enable = "Activation réussie!";
 
     // Messages d'erreur
     public static String failed = "L'opération a échoué!";

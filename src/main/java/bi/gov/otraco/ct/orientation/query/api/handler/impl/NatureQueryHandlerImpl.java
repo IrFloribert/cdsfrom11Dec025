@@ -60,8 +60,8 @@ public class NatureQueryHandlerImpl implements NatureQueryHandler {
                 .wheels(n.getWheels())
                 .wheelsType(n.getWheelsType())
                 .bridge(n.getBridge())
-                .agencyCode(n.getAgencyCode())
-                .agencyName(n.getAgencyName())
+                .branchCode(n.getBranchCode())
+                .branchName(n.getBranchName())
                 .logCreated(n.getLogCreated())
                 .validStatus(n.getValidStatus())
                 .build();

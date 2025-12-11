@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/smu/orientation/create")
+@RequestMapping("bi/gov/otraco/ct/orientation/create")
 @Tag(name = "Orientation")
 public class CreateOrientationController {
     private final OrientationPayload payload;

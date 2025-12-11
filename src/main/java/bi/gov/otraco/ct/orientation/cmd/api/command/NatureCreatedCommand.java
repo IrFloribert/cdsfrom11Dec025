@@ -87,11 +87,11 @@ public class NatureCreatedCommand {
 
     @Size(max = 20, message = "Le code de l'agence ne doit pas dépasser 20 caractères")
     @Schema(description = "Code de l'agence", example = "AGC001", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String agencyCode;
+    private String branchCode;
 
     @Size(max = 100, message = "Le nom de l'agence ne doit pas dépasser 100 caractères")
     @Schema(description = "Nom de l'agence", example = "Agence centrale de Gitega", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String agencyName;
+    private String branchName;
 
     @Schema(description = "Date de création de l'enregistrement", example = "2025-01-15 14:33:22")
     private String logCreated;

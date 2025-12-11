@@ -9,3 +9,4 @@ public class Inspection {
         SpringApplication.run(Inspection.class, args);
     }
 }
+

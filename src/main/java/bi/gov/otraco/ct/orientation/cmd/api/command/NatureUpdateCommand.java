@@ -93,12 +93,12 @@ public record NatureUpdateCommand (
     @NotBlank(message = "Le code de l'agence est obligatoire")
     @Size(max = 20, message = "Le code de l'agence ne doit pas dépasser 20 caractères")
     @Schema(description = "Code de l'agence", example = "AGC001", requiredMode = Schema.RequiredMode.REQUIRED)
-    String agencyCode,
+    String branchCode,
 
     @NotBlank(message = "Le nom de l'agence est obligatoire")
     @Size(max = 100, message = "Le nom de l'agence ne doit pas dépasser 100 caractères")
     @Schema(description = "Nom de l'agence", example = "Agence centrale de Gitega", requiredMode = Schema.RequiredMode.REQUIRED)
-    String agencyName,
+    String branchName,
 
     @Schema(description = "Statut de validité", example = "VALID")
     String validStatus)implements Serializable{

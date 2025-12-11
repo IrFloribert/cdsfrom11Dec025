@@ -1,15 +1,18 @@
 package bi.gov.otraco.ct.orientation.core.payload.impl;
-
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationCreatedCommand;
+import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationStatusCommand;
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationUpdatedCommand;
 import bi.gov.otraco.ct.orientation.core.common.OrientationModelCode;
 import bi.gov.otraco.ct.orientation.core.payload.OrientationPayload;
 import bi.gov.otraco.ct.orientation.query.api.repository.OrientationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import reactor.core.publisher.Mono;
 
 @Component
+@Service
 @RequiredArgsConstructor
 public class OrientationPayloadImpl implements OrientationPayload {
     private final OrientationRepository repository;
@@ -28,6 +31,7 @@ public class OrientationPayloadImpl implements OrientationPayload {
         });
     }
 
+
     @Override
     public Mono<String> getOrientationCode() {
         return repository.count().flatMap(count -> {
@@ -36,4 +40,18 @@ public class OrientationPayloadImpl implements OrientationPayload {
                 .map(last -> OrientationModelCode.generate(last.getOrientationCode()));
         });
     }
+
+
+    @Override
+public Mono<Void> statusException(OrientationStatusCommand command) {
+    return repository.existsByOrientationCode(command.code())
+        .flatMap(exists -> {
+            if (!exists) {
+                return Mono.error(new IllegalArgumentException(
+                    "Orientation not found with code: " + command.code()
+                ));
+            }
+            return Mono.empty();
+        });
+}
 }

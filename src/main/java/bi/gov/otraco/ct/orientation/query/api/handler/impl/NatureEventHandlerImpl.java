@@ -45,14 +45,15 @@ public class NatureEventHandlerImpl implements NatureEventHandler {
                 .wheels(cmd.getWheels())
                 .wheelsType(cmd.getWheelsType())
                 .bridge(cmd.getBridge())
-                .agencyCode(cmd.getAgencyCode())
-                .agencyName(cmd.getAgencyName())
+                .branchCode(cmd.getBranchCode())
+                .branchName(cmd.getBranchName())
                 .logCreated(cmd.getLogCreated() != null ? cmd.getLogCreated() : LocalDateTime.now().format(formatter))
                 .validStatus(cmd.getValidStatus() != null ? cmd.getValidStatus() : "ACTIVE")
                 .build();
 
         return naturerepository.save(nature).then();
     }
+
 
 
     @Override
@@ -80,8 +81,8 @@ public class NatureEventHandlerImpl implements NatureEventHandler {
             nature.setWheels(command.wheels());
             nature.setWheelsType(command.wheelsType());
             nature.setBridge(command.bridge());
-            nature.setAgencyCode(command.agencyCode());
-            nature.setAgencyName(command.agencyName());
+            nature.setBranchCode(command.branchCode());
+            nature.setBranchName(command.branchName());
             nature.setValidStatus(command.validStatus());
             return naturerepository.save(nature).map(saved -> ResponseEntity.ok().body(saved));
         }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build())).onErrorResume(ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));

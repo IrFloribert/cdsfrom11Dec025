@@ -56,12 +56,12 @@ public record OrientationUpdatedCommand(
         @NotNull(message = "Le code d'agence ne doit pas être nul")
         @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code d'agence doit contenir au moins 6 caractères alphanumériques majuscules")
         @Schema(description = "Code d'agence", example = "AG30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
-        String agencyCode,
+        String branchCode,
 
         @NotNull(message = "Le nom de l'agence ne doit pas être nul")
         @Pattern(regexp = "^[\\p{L}0-9 .'-]{2,60}$", message = "Le nom de l'agence doit contenir entre 2 et 60 caractères")
         @Schema(description = "Nom de l'agence", example = "Agence Centrale OTRACO", requiredMode = Schema.RequiredMode.REQUIRED)
-        String agencyName,
+        String branchName,
 
         @NotNull(message = "Le code utilisateur ne doit pas être nul")
         @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code utilisateur doit contenir au moins 6 caractères alphanumériques majuscules")

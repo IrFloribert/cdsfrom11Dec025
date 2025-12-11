@@ -82,11 +82,11 @@ public class Nature {
     @Field("bridge")
     private String bridge;
 
-    @Field("agency_code")
-    private String agencyCode;
+    @Field("branch_code")
+    private String branchCode;
 
-    @Field("agency_name")
-    private String agencyName;
+    @Field("branch_name")
+    private String branchName;
 
     @Field("log_created")
     private String logCreated;
