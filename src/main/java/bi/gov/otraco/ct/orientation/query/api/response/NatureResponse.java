@@ -38,6 +38,8 @@ public record NatureResponse (
     String branchName,
     String logCreated,
     String validStatus,
+    String userCode,
+    String userName,
     String qr)implements Serializable{
 
 

@@ -1,6 +1,7 @@
 package bi.gov.otraco.ct.orientation.cmd.api.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,15 +44,14 @@ public record NatureCreatedCommand (
     @Schema(description = "Nom de l'agence", example = "Agence centrale de Gitega", requiredMode = Schema.RequiredMode.REQUIRED)
     String branchName,
 
-    @Schema(description = "Date de création de l'enregistrement", example = "2025-01-15 14:33:22")
-    String logCreated,
-
-    @Schema(description = "Statut de validité", example = "VALID")
-    String validStatus,
 
 
-    @Schema(description = "Nombre de sièges", example = "GOOD")
-    String number)implements Serializable{
+    @NotBlank(message = "User code est obligatoire")
+    String userCode,
+
+    @NotBlank(message = "User name est obligatoire")
+    String userName
+)implements Serializable{
 
 
 

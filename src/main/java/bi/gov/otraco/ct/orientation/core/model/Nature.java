@@ -50,4 +50,7 @@ public class Nature {
     @Field("branch_name")    private String branchName;
     @Field("log_created")    private String logCreatedAt;
     @Field("valid_status")    private String validStatus;
+
+    @Field("user_code")    private String userCode;
+    @Field("user_name")    private String userName;
 }

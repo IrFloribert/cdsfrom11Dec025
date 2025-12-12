@@ -27,14 +27,15 @@ public class NatureQueryHandlerImpl implements NatureQueryHandler {
     public Mono<NatureResponse> findByChassisNo(String chassis) {
         return repository.findByChassisNo(chassis).map(this::toNatureDisplay);
     }
+
     @Override
-    public Mono<NatureResponse> findByPlateNo(String chassis) {
-        return repository.findByChassisNo(chassis).map(this::toNatureDisplay);
+    public Mono<NatureResponse> findByPlateNo(String plateNo) {
+        return repository.findByPlateNo(plateNo).map(this::toNatureDisplay);
     }
 
     @Override
-    public Mono<NatureResponse> findByQR(String chassis) {
-        return repository.findByReceiptNo(chassis).map(this::toNatureDisplay);
+    public Mono<NatureResponse> findByQR(String receiptNo) {
+        return repository.findByReceiptNo(receiptNo).map(this::toNatureDisplay);
     }
 
 
@@ -67,6 +68,8 @@ public class NatureQueryHandlerImpl implements NatureQueryHandler {
                 o.getBranchName(),
                 o.getLogCreatedAt(),
                 o.getValidStatus(),
+                o.getUserCode(),
+                o.getUserName(),
                 o.getReceiptNo()
         );
     }
