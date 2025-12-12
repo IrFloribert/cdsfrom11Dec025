@@ -1,6 +1,7 @@
 package bi.gov.otraco.ct.orientation.cmd.api.command;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints
         .Pattern;
@@ -69,9 +70,20 @@ public record OrientationCreatedCommand(
 
 
         @Schema(description = "Catégorie du propriétaire (ex: PARTICULIER, ENTREPRISE)", example = "PARTICULIER", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-        String ownerCategory
+        String ownerCategory,
+
+
+        @NotNull(message = "Le code de ligne d'orientation ne doit pas être nul")
+        @Pattern(regexp = "^(OL001|OL002|OL003)$", message = "La valeur doit être 'OL001' ou 'OL002' ou 'OL003'")
+        @NotBlank(message = "Présence de pare-brise est obligatoire")  String orientationLineCode
+
+//        @NotNull(message = "Le nom de la ligne d'orientation ne doit pas être nul")
+//        @Pattern(regexp = "^[A-Z0-9-]{6,}$", message = "Le code utilisateur doit contenir au moins 6 caractères alphanumériques en majuscules")
+////        @Schema(description = "Nom de la ligne d'orientation", example = "Ligne de Contrôle Technique A", requiredMode = Schema.RequiredMode.REQUIRED)
+//        String orientationLineName
+
 ) implements Serializable {
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 }
 
 

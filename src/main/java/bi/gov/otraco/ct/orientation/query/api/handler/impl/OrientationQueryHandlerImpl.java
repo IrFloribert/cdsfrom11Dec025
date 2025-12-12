@@ -43,10 +43,6 @@ public class OrientationQueryHandlerImpl implements OrientationQueryHandler {
         return orientationRepository.findByOrientationCode(code).flatMap(category -> Mono.just(toOrientationDisplay(category)));
     }
 
-    @Override
-    public Mono<OrientationQRResponse> findOrientationByQR(String code) {
-        return orientationRepository.findByOrientationCode(code).flatMap(category -> Mono.just(toOrientationQRDisplay(category)));
-    }
 
 
     @Override
@@ -74,7 +70,7 @@ public class OrientationQueryHandlerImpl implements OrientationQueryHandler {
         return new OrientationResponse(o.getOrientationId(), o.getOrientationCode(), o.getReceiptNo(), o.getPaymentNo(), o.getChassisNo(),
                 o.getPlateNo(), o.getOwnerName(), o.getTinNo(), o.getOrientationLineCode(), o.getOrientationLineName(), o.getBranchCode(),
                 o.getBranchName(), o.getUserCode(), o.getUserName(), o.getLogCreatedAt(), o.getVehicleType(), o.getOwnerCategory(),
-                o.getInvoiceNumber(), o.getPaymentStatus(),o.getOrientationCode()
+                o.getInvoiceNumber(), o.getPaymentStatus()
 
 
         );

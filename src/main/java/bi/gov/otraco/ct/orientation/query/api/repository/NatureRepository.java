@@ -19,4 +19,5 @@ public interface NatureRepository extends ReactiveMongoRepository<Nature, String
     Mono<Nature> findByCode(@Param("code") String code);
     Mono<Boolean> existsByReceiptNo(@Param("receiptNo") String receiptNo);
     Mono<Nature> findByReceiptNo(@Param("receiptNo") String receiptNo);
+    Mono<Boolean> existsByChassisNoOrPlateNo(@Param("chassisNo") String chassisNo, @Param("plateNo") String plateNo);
 }

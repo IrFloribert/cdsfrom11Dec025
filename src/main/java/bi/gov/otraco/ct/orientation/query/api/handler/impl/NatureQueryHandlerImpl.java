@@ -33,11 +33,6 @@ public class NatureQueryHandlerImpl implements NatureQueryHandler {
         return repository.findByPlateNo(plateNo).map(this::toNatureDisplay);
     }
 
-    @Override
-    public Mono<NatureResponse> findByQR(String receiptNo) {
-        return repository.findByReceiptNo(receiptNo).map(this::toNatureDisplay);
-    }
-
 
     private NatureResponse toNatureDisplay(Nature o) {
         return new NatureResponse(

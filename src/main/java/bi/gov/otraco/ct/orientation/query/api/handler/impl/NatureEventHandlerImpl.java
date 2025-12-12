@@ -1,104 +1,99 @@
 package bi.gov.otraco.ct.orientation.query.api.handler.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.NatureVerifyCommand;
 import bi.gov.otraco.ct.orientation.core.common.LogCreated;
 import bi.gov.otraco.ct.orientation.core.model.Nature;
 import bi.gov.otraco.ct.orientation.core.payload.NaturePayload;
 import bi.gov.otraco.ct.orientation.query.api.handler.NatureEventHandler;
 import bi.gov.otraco.ct.orientation.query.api.repository.NatureRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
-import java.util.stream.Stream;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class NatureEventHandlerImpl implements NatureEventHandler {
     private final NatureRepository naturerepository;
     private final NaturePayload naturePayload;
 
-    @Override
-    public Mono<Void> create(NatureCreatedCommand cmd) {
-        Nature nature = Nature.builder()
-                .natureId(UUID.randomUUID().toString())
-                .receiptNo(cmd.receiptNo())
-                .plateNo(cmd.plateNo())
-                .chassisNo(cmd.chassisNo())
-                .ownerTinNo(cmd.ownerTinNo())
-                .ownerName(cmd.ownerName())
-
-                .vehicleBreak("")
-                .compressibility("")
-                .direction("")
-                .document("")
-                .engine("")
-                .lighting("")
-                .load("")
-                .numberSeat("")
-                .parePrise("")
-                .rocket("")
-                .shockAbsorber("")
-                .speed("")
-                .suspension("")
-                .transmission("")
-                .wheels("")
-                .wheelsType("")
-                .bridge("")
-
-                .branchCode(cmd.branchCode())
-                .branchName(cmd.branchName())
-                .logCreatedAt(LogCreated.At())
-                .validStatus("00")
-                .userName(cmd.userName())
-                .userCode(cmd.userCode())
-                .build();
-
-        return naturerepository.save(nature).then();
-    }
 
     @Override
-    public Mono<ResponseEntity<Nature>> verifyState(NatureVerifyCommand command) {
-        return naturerepository.findByReceiptNo(command.receiptNo())
-                .flatMap(nature -> {
-                    // Mise à jour des champs
-                    nature.setVehicleBreak(command.vehicleBreak());
-                    nature.setCompressibility(command.compressibility());
-                    nature.setDirection(command.direction());
-                    nature.setDocument(command.document());
-                    nature.setEngine(command.engine());
-                    nature.setLighting(command.lighting());
-                    nature.setLoad(command.load());
-                    nature.setNumberSeat(command.numberSeat());
-                    nature.setParePrise(command.parePrise());
-                    nature.setRocket(command.rocket());
-                    nature.setShockAbsorber(command.shockAbsorber());
-                    nature.setSpeed(command.speed());
-                    nature.setSuspension(command.suspension());
-                    nature.setTransmission(command.transmission());
-                    nature.setWheels(command.wheels());
-                    nature.setWheelsType(command.wheelsType());
-                    nature.setBridge(command.bridge());
+    public Mono<ResponseEntity<?>> create(NatureCreatedCommand command) {
+        // Vérification de l'unicité avant la création
+        return naturerepository.existsByChassisNoOrPlateNo(command.chassisNo(), command.plateNo())
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.just(ResponseEntity.status(HttpStatus.CONFLICT).build());
+                    }
 
-                    // Vérification si tous les champs sont "BON"
-                    boolean allFieldsValid = Stream.of(
+                    // Liste des champs à vérifier
+                    String[] fields = {
                             command.vehicleBreak(), command.compressibility(), command.direction(),
                             command.document(), command.engine(), command.lighting(),
                             command.load(), command.numberSeat(), command.parePrise(),
                             command.rocket(), command.shockAbsorber(), command.speed(),
                             command.suspension(), command.transmission(), command.wheels(),
                             command.wheelsType(), command.bridge()
-                    ).allMatch("BON"::equalsIgnoreCase);
+                    };
 
-                    // Définition du statut
-                    nature.setValidStatus(allFieldsValid ? "01" : "00");
+                    // Vérification si tous les champs sont "BON"
+                    boolean allFieldsValid = true;
+                    for (String field : fields) {
+                        if (!"BON".equalsIgnoreCase(field)) {
+                            allFieldsValid = false;
+                            break;
+                        }
+                    }
+
+                    // Construction de l'objet Nature
+                    Nature nature = Nature.builder()
+                            .natureId(UUID.randomUUID().toString())
+                            .receiptNo(command.receiptNo())
+                            .plateNo(command.plateNo().toUpperCase())
+                            .chassisNo(command.chassisNo().toUpperCase())
+                            .ownerTinNo(command.ownerTinNo())
+                            .ownerName(command.ownerName())
+                            .vehicleBreak(command.vehicleBreak())
+                            .compressibility(command.compressibility())
+                            .direction(command.direction())
+                            .document(command.document())
+                            .engine(command.engine())
+                            .lighting(command.lighting())
+                            .load(command.load())
+                            .numberSeat(command.numberSeat())
+                            .parePrise(command.parePrise())
+                            .rocket(command.rocket())
+                            .shockAbsorber(command.shockAbsorber())
+                            .speed(command.speed())
+                            .suspension(command.suspension())
+                            .transmission(command.transmission())
+                            .wheels(command.wheels())
+                            .wheelsType(command.wheelsType())
+                            .bridge(command.bridge())
+                            .userCode(command.userCode())
+                            .userName(command.userName())
+                            .branchCode(command.branchCode())
+                            .branchName(command.branchName())
+                            .logCreatedAt(LogCreated.At())
+                            .validStatus(allFieldsValid ? "01" : "00")
+                            .build();
 
                     return naturerepository.save(nature)
-                            .map(saved -> ResponseEntity.ok().body(saved));
+                            .map(saved -> ResponseEntity.status(HttpStatus.CREATED).body(saved))
+                            .onErrorResume(e -> {
+                                log.error("Erreur lors de la sauvegarde : {}", e.getMessage());
+                                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+                            });
                 })
-                .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
+                .onErrorResume(ex -> {
+                    log.error("Erreur lors de la création : {}", ex.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+                });
     }
 }

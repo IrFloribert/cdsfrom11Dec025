@@ -2,10 +2,8 @@ package bi.gov.otraco.ct.orientation.query.api.controller;
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindByCode;
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindById;
 import bi.gov.otraco.ct.orientation.query.api.dto.AllLookupOrientationResponse;
-import bi.gov.otraco.ct.orientation.query.api.dto.LookupOrientationQRResponse;
 import bi.gov.otraco.ct.orientation.query.api.dto.LookupOrientationResponse;
 import bi.gov.otraco.ct.orientation.query.api.handler.OrientationQueryHandler;
-import bi.gov.otraco.ct.orientation.query.api.response.OrientationResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -13,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.server.ResponseStatusException;
@@ -64,13 +61,7 @@ public class OrientationLookupController {
     }
 
 
-    @Operation(summary = "Get orientation by qr")
-    @PutMapping(path = "get-orientation-by-qr", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<LookupOrientationQRResponse> getOrintationByQR(@Valid@RequestBody FindByCode query) {
-        return queryHandler.findOrientationByQR(query.code())
-                .map(category -> new LookupOrientationQRResponse(true, category))
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "orientation not found")));
-    }
+
 
 
     @Operation(summary = "Get orientation by code")

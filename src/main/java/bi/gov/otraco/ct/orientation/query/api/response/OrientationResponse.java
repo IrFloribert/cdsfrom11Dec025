@@ -19,8 +19,7 @@ public record OrientationResponse(
         String vehicleType,
         String ownerCategory,
         String invoiceNumber,
-        String paymentStatus,
-        String qr
+        String paymentStatus
 
 
 

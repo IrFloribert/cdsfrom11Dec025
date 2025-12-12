@@ -15,7 +15,6 @@ public interface OrientationQueryHandler {
     Mono<OrientationResponse> findByOrientationCode(String code);
 
 
-    Mono<OrientationQRResponse> findOrientationByQR(String code);
 
     Mono<OrientationResponse> findByOrientationId(String id);
 

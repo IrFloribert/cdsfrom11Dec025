@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 public interface OrientationEventHandler {
     Mono<ResponseEntity<Orientation>> create(OrientationCreatedCommand command);
-    Mono<ResponseEntity<Orientation>> updateTowardsCombo(OrientationUpdatedComboCommand command);
+//    Mono<ResponseEntity<Orientation>> updateTowardsCombo(OrientationUpdatedComboCommand command);
     Mono<ResponseEntity<Orientation>> disable(OrientationStatusCommand command);
     Mono<ResponseEntity<Orientation>> enable(OrientationStatusCommand command);
 }

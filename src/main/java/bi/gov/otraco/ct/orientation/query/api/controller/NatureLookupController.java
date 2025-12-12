@@ -46,13 +46,4 @@ public class NatureLookupController {
             .map(o -> new LookupNatureResponse(true, o))
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Nature not found")));
     }
-
-
-    @Operation(summary = "Get nature by QR")
-    @PutMapping(path = "get-nature-by-qr", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<LookupNatureResponse> getByPlateNo(@Valid @RequestBody FindByCode query) {
-        return queryHandler.findByQR(query.code())
-                .map(o -> new LookupNatureResponse(true, o))
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Nature QR not found")));
-    }
 }

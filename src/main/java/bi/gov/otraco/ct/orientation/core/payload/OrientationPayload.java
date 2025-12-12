@@ -10,8 +10,9 @@ import reactor.core.publisher.Mono;
 
 public interface OrientationPayload {
     Mono<Void> createException(OrientationCreatedCommand command);
-    Mono<Void> updateComboException(OrientationUpdatedComboCommand command);
-    Mono<String> getOrientationCode();
-    Mono<Void> statusException(OrientationStatusCommand command) ;
 
+    Mono<String> getOrientationCode();
+
+
+    Mono<Void> statusException(OrientationUpdatedComboCommand command);
 }
