@@ -1,8 +1,6 @@
 package bi.gov.otraco.ct.orientation.core.payload;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.NatureUpdateCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.NatureVerifyCommand;
 import bi.gov.otraco.ct.orientation.query.api.repository.NatureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -43,10 +41,10 @@ public class NaturePayload {
                         : Mono.empty()
                 );
     }
-
-    public Mono<Void> updateException(NatureVerifyCommand cmd) {
-        return repository.findByReceiptNo(cmd.receiptNo())
-            .switchIfEmpty(Mono.error(new IllegalArgumentException("ReceiptNo with code " + cmd.receiptNo() + " not found")))
-            .then(Mono.empty());
-    }
+//
+//    public Mono<Void> updateException(NatureVerifyCommand cmd) {
+////        return repository.findByReceiptNo(cmd.receiptNo())
+//            .switchIfEmpty(Mono.error(new IllegalArgumentException("ReceiptNo with code " + cmd.receiptNo() + " not found")))
+//            .then(Mono.empty());
+//    }
 }
