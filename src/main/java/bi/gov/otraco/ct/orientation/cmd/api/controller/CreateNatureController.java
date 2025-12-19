@@ -1,12 +1,9 @@
 package bi.gov.otraco.ct.orientation.cmd.api.controller;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
 import bi.gov.otraco.ct.orientation.core.dto.MessageResponse;
 import bi.gov.otraco.ct.orientation.core.payload.NaturePayload;
-import bi.gov.otraco.ct.orientation.core.payload.NaturePayload;
 import bi.gov.otraco.ct.orientation.core.utils.MapUtils;
-import bi.gov.otraco.ct.orientation.query.api.handler.NatureEventHandler;
 import bi.gov.otraco.ct.orientation.query.api.handler.NatureEventHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
