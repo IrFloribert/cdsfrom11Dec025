@@ -17,15 +17,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Nature {
     @Id
     private String natureId;
-    @Field("code")    private String code;
+    @Field("natureCode")    private String code;
     @Field("receipt_no")    private String receiptNo;
     @Field("plate_no")    private String plateNo;
     @Field("chassis_no")    private String chassisNo;
     @Field("owner_tin_no")    private String ownerTinNo;
     @Field("owner_name")    private String ownerName;
-
-
-
     @Field("vehicle_break")    private String vehicleBreak;
     @Field("compressibility")    private String compressibility;
     @Field("direction")    private String direction;
@@ -43,9 +40,6 @@ public class Nature {
     @Field("wheels")    private String wheels;
     @Field("wheels_type")    private String wheelsType;
     @Field("bridge")    private String bridge;
-
-
-
     @Field("branch_code")    private String branchCode;
     @Field("branch_name")    private String branchName;
     @Field("log_created")    private String logCreatedAt;

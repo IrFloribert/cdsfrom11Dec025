@@ -33,7 +33,7 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
     @Override
     public Mono<ResponseEntity<Orientation>> create(OrientationCreatedCommand command) {
         return orientationPayload.getOrientationCode().flatMap(code -> {
-                    // Déterminer le nom de la ligne en fonction du code
+                    // Déterminer le nom de la ligne en fonction du natureCode
                     String lineName = "";
                     if ("OL001".equals(command.orientationLineCode())) {
                         lineName = "LMV";

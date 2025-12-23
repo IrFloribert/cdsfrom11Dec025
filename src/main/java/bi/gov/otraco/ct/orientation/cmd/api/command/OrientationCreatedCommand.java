@@ -44,8 +44,8 @@ public record OrientationCreatedCommand(
         @Schema(description = "Numéro d'identification fiscale (TIN) du propriétaire", example = "TIN123456789", requiredMode = Schema.RequiredMode.REQUIRED)
         String tinNo,
 
-        @NotNull(message = "Le code d'agence est obligatoire")
-        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code d'agence doit contenir au moins 6 caractères alphanumériques en majuscules")
+        @NotNull(message = "Le natureCode d'agence est obligatoire")
+        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le natureCode d'agence doit contenir au moins 6 caractères alphanumériques en majuscules")
         @Schema(description = "Code unique identifiant l'agence OTRACO", example = "AG30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
         String branchCode,
 
@@ -54,8 +54,8 @@ public record OrientationCreatedCommand(
         @Schema(description = "Nom complet de l'agence OTRACO", example = "Agence Centrale OTRACO", requiredMode = Schema.RequiredMode.REQUIRED)
         String branchName,
 
-        @NotNull(message = "Le code utilisateur est obligatoire")
-        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code utilisateur doit contenir au moins 6 caractères alphanumériques en majuscules")
+        @NotNull(message = "Le natureCode utilisateur est obligatoire")
+        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le natureCode utilisateur doit contenir au moins 6 caractères alphanumériques en majuscules")
         @Schema(description = "Identifiant unique de l'opérateur", example = "USR30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
         String userCode,
 
@@ -73,12 +73,12 @@ public record OrientationCreatedCommand(
         String ownerCategory,
 
 
-        @NotNull(message = "Le code de ligne d'orientation ne doit pas être nul")
+        @NotNull(message = "Le natureCode de ligne d'orientation ne doit pas être nul")
         @Pattern(regexp = "^(OL001|OL002|OL003)$", message = "La valeur doit être 'OL001' ou 'OL002' ou 'OL003'")
         @NotBlank(message = "Présence de pare-brise est obligatoire")  String orientationLineCode
 
 //        @NotNull(message = "Le nom de la ligne d'orientation ne doit pas être nul")
-//        @Pattern(regexp = "^[A-Z0-9-]{6,}$", message = "Le code utilisateur doit contenir au moins 6 caractères alphanumériques en majuscules")
+//        @Pattern(regexp = "^[A-Z0-9-]{6,}$", message = "Le natureCode utilisateur doit contenir au moins 6 caractères alphanumériques en majuscules")
 ////        @Schema(description = "Nom de la ligne d'orientation", example = "Ligne de Contrôle Technique A", requiredMode = Schema.RequiredMode.REQUIRED)
 //        String orientationLineName
 

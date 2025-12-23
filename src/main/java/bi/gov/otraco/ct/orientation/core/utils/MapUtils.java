@@ -18,7 +18,7 @@ public class MapUtils {
 
     // Messages de validation
     public static String id_regex = "L'identifiant doit contenir trente-six caractères.";
-    public static String code_regex = "Le code doit contenir au moins 6 caractères alphanumériques majuscules.";
+    public static String code_regex = "Le natureCode doit contenir au moins 6 caractères alphanumériques majuscules.";
     public static String name_regex = "Le nom doit contenir entre 2 et 60 caractères.";
     public static String required_field = "Le champ est obligatoire.";
     public static String invalid_format = "Le format est invalide.";
@@ -30,7 +30,7 @@ public class MapUtils {
     public static String user_not_found = "L'utilisateur n'existe pas.";
 
     // Messages de conflit
-    public static String duplicate_code = "Ce code existe déjà.";
+    public static String duplicate_code = "Ce natureCode existe déjà.";
     public static String duplicate_name = "Ce nom existe déjà.";
     public static String duplicate_entry = "Cette entrée existe déjà.";
 

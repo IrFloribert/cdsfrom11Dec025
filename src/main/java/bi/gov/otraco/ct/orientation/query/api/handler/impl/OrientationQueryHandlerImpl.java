@@ -1,7 +1,6 @@
 package bi.gov.otraco.ct.orientation.query.api.handler.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindByCode;
-import bi.gov.otraco.ct.orientation.core.common.LogCreated;
 import bi.gov.otraco.ct.orientation.core.model.Orientation;
 import bi.gov.otraco.ct.orientation.query.api.handler.OrientationQueryHandler;
 import bi.gov.otraco.ct.orientation.query.api.repository.OrientationRepository;
@@ -75,6 +74,12 @@ public class OrientationQueryHandlerImpl implements OrientationQueryHandler {
 
         );
     }
+
+    @Override
+    public Mono<OrientationResponse> findByPlateAndTinAndChassis(String plateNo, String tin, String chassis) {
+        return orientationRepository.findByPlateNoAndTinNoAndChassisNo(plateNo,tin,chassis).map(this::toOrientationDisplay);
+    }
+
 
 
 

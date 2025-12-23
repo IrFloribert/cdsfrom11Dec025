@@ -1,5 +1,7 @@
 package bi.gov.otraco.ct.orientation.query.api.controller;
+
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindByCode;
+import bi.gov.otraco.ct.orientation.cmd.api.command.FindByCodes;
 import bi.gov.otraco.ct.orientation.cmd.api.command.FindById;
 import bi.gov.otraco.ct.orientation.query.api.dto.AllLookupOrientationResponse;
 import bi.gov.otraco.ct.orientation.query.api.dto.LookupOrientationResponse;
@@ -12,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
@@ -52,8 +53,8 @@ public class OrientationLookupController {
     }
 
 
-    @Operation(summary = "Get orientation by code")
-    @PutMapping(path = "get-orientation-by-code", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Get orientation by natureCode")
+    @PutMapping(path = "get-orientation-by-natureCode", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<LookupOrientationResponse> getOrintationByCode(@Valid@RequestBody FindByCode query) {
         return queryHandler.findByOrientationCode(query.code())
                 .map(category -> new LookupOrientationResponse(true, category))
@@ -64,7 +65,7 @@ public class OrientationLookupController {
 
 
 
-    @Operation(summary = "Get orientation by code")
+    @Operation(summary = "Get orientation by natureCode")
     @PutMapping(path = "get-orientation-by-id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<LookupOrientationResponse> getOrintationById(@Valid@RequestBody FindById query) {
         return queryHandler.findByOrientationId(query.id())
@@ -95,6 +96,17 @@ public class OrientationLookupController {
                     return Mono.just(new AllLookupOrientationResponse(false, Collections.emptyList()));
                 });
     }
+
+    @Operation(summary = "Get orientation by |plate-tin-chassis| number")
+    @PutMapping(path = "get-orientation-by-plate-and-tin-and-chassis-number", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<LookupOrientationResponse> getByPlateNoAndTCNo(@Valid @RequestBody FindByCodes query) {
+        return queryHandler.findByPlateAndTinAndChassis(query.plateNo(), query.tinNo(), query.chassisNo())
+                .map(o -> new LookupOrientationResponse(true, o))
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Orientation not found")));
+    }
+
+
+
 
 
 }

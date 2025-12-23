@@ -6,4 +6,6 @@ public interface NatureQueryHandler {
     Flux<NatureResponse> findAll();
     Mono<NatureResponse> findByChassisNo(String orientationCode);
     Mono<NatureResponse> findByPlateNo(String chassis);
+
+    Mono<NatureResponse> findByPlateAndTinAndChassis(String plateNo, String tin, String chassis);
 }

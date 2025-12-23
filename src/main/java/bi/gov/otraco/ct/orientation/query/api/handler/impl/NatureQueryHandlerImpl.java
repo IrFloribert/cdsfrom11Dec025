@@ -33,10 +33,16 @@ public class NatureQueryHandlerImpl implements NatureQueryHandler {
         return repository.findByPlateNo(plateNo).map(this::toNatureDisplay);
     }
 
+    @Override
+    public Mono<NatureResponse> findByPlateAndTinAndChassis(String plateNo, String tin, String chassis) {
+        return repository.findByPlateNoAndOwnerTinNoAndChassisNo(plateNo,tin,chassis).map(this::toNatureDisplay);
+    }
+
 
     private NatureResponse toNatureDisplay(Nature o) {
         return new NatureResponse(
                 o.getNatureId(),
+                o.getCode(),
                 o.getReceiptNo(),
                 o.getPlateNo(),
                 o.getChassisNo(),

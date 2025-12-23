@@ -37,7 +37,7 @@ public class OrientationPayloadImpl implements OrientationPayload {
     public Mono<Void> statusException(OrientationUpdatedComboCommand command) {
         return repository.existsByOrientationCode(command.qr()).flatMap(exists -> {
             if (!exists) {
-                return Mono.error(new IllegalArgumentException("Orientation not found with code: " + command.qr()));
+                return Mono.error(new IllegalArgumentException("Orientation not found with natureCode: " + command.qr()));
             }
             return Mono.empty();
         });

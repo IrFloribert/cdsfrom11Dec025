@@ -2,7 +2,7 @@ package bi.gov.otraco.ct.orientation.cmd.api.controller;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
 import bi.gov.otraco.ct.orientation.core.dto.MessageResponse;
-import bi.gov.otraco.ct.orientation.core.payload.NaturePayload;
+import bi.gov.otraco.ct.orientation.core.payload.NaturesPayload;
 import bi.gov.otraco.ct.orientation.core.utils.MapUtils;
 import bi.gov.otraco.ct.orientation.query.api.handler.NatureEventHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/v1/otraco/certificate/nature/create")
 @Tag(name = "Nature")
 public class CreateNatureController {
-    private final NaturePayload payload;
+    private final NaturesPayload payload;
     private final NatureEventHandler handler;
 
     @Operation(summary = "Create orientation")

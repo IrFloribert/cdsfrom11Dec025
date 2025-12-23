@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 @Schema(name = "Orientation Combo Command")
 public record OrientationComboCommand(
-//        @NotNull(message = "Le code d'orientation ne doit pas être nul")
-//        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le code d'orientation doit contenir au moins 6 caractères alphanumériques majuscules")
+//        @NotNull(message = "Le natureCode d'orientation ne doit pas être nul")
+//        @Pattern(regexp = "^[A-Z0-9]{6,}$", message = "Le natureCode d'orientation doit contenir au moins 6 caractères alphanumériques majuscules")
 //        @Schema(description = "Code d'orientation", example = "OR30000000001", requiredMode = Schema.RequiredMode.REQUIRED)
 //        String orientationCode
 

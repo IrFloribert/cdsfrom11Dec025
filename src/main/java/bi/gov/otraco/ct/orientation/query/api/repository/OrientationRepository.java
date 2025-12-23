@@ -22,4 +22,6 @@ public interface OrientationRepository extends ReactiveMongoRepository<Orientati
 
     @Query("{ 'log_created_at' : ?0, 'branch_code' : ?1 }")
     Flux<Orientation> findByBranchCode(String date, String branchCode);
+
+    Mono<Orientation> findByPlateNoAndTinNoAndChassisNo(@Param("plateNo") String plateNo, @Param("tin") String tin, @Param("chassisNo") String chassisNo);
 }

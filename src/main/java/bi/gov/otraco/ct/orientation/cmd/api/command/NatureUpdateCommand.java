@@ -90,8 +90,8 @@ public record NatureUpdateCommand (
     @Schema(description = "Pont utilisé", example = "Simple")
     String bridge,
 
-    @NotBlank(message = "Le code de l'agence est obligatoire")
-    @Size(max = 20, message = "Le code de l'agence ne doit pas dépasser 20 caractères")
+    @NotBlank(message = "Le natureCode de l'agence est obligatoire")
+    @Size(max = 20, message = "Le natureCode de l'agence ne doit pas dépasser 20 caractères")
     @Schema(description = "Code de l'agence", example = "AGC001", requiredMode = Schema.RequiredMode.REQUIRED)
     String branchCode,
 
