@@ -12,5 +12,5 @@ public interface NaturesPayload  {
 
     Mono<MessageResponse> validNature(ValidationCommand command);
 
-    Mono<MessageResponse> validOrientation(ValidationCommand command);
+    Mono<?> validOrientation(ValidationCommand command);
 }

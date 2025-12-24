@@ -44,7 +44,6 @@ public class NaturesPayloadImpl implements NaturesPayload {
         return repository.existsByReceiptNo(receiptNo).flatMap(exists -> exists ? Mono.error(new IllegalArgumentException("Un reçu avec le numéro " + receiptNo + " existe déjà")) : Mono.empty());
     }
 
-
     @Override
     public Mono<String> getNatureCode() {
         return repository.count().flatMap(count -> {
@@ -72,7 +71,7 @@ public class NaturesPayloadImpl implements NaturesPayload {
 
     WebClient webClientValidOrientation = WebClient.builder().baseUrl("http://192.168.80.22:8025").build();
     @Override
-    public Mono<MessageResponse> validOrientation(ValidationCommand command) {
+    public Mono<?> validOrientation(ValidationCommand command) {
         return webClientValidOrientation.put()
                 .uri(
                         "/api/v1/otraco/certificate/operation/validator/validate-orientation"

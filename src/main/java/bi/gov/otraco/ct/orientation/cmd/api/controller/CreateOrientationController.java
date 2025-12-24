@@ -27,7 +27,7 @@ public class CreateOrientationController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<MessageResponse>> create(@Valid @RequestBody OrientationCreatedCommand cmd) {
         return payload.createException(cmd).then(handler.create(cmd))
-            .map(s -> ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse(true, MapUtils.create)))
+            .flatMap(s -> Mono.just(ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse(true, MapUtils.create))))
             .onErrorResume(ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new MessageResponse(false, ex.getMessage()))));
     }

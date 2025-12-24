@@ -2,10 +2,11 @@ package bi.gov.otraco.ct.orientation.query.api.handler.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationCreatedCommand;
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationStatusCommand;
-import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationUpdatedComboCommand;
 import bi.gov.otraco.ct.orientation.core.common.LogCreated;
 import bi.gov.otraco.ct.orientation.core.common.OrientationStatus;
+import bi.gov.otraco.ct.orientation.core.feign.validator.command.ValidationCommand;
 import bi.gov.otraco.ct.orientation.core.model.Orientation;
+import bi.gov.otraco.ct.orientation.core.payload.NaturesPayload;
 import bi.gov.otraco.ct.orientation.core.payload.OrientationPayload;
 import bi.gov.otraco.ct.orientation.query.api.handler.OrientationEventHandler;
 import bi.gov.otraco.ct.orientation.query.api.repository.OrientationRepository;
@@ -16,10 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import reactor.core.publisher.Mono;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -29,9 +28,10 @@ import java.util.UUID;
 public class OrientationEventHandlerImpl implements OrientationEventHandler {
     private final OrientationRepository orientationRepository;
     private final OrientationPayload orientationPayload;
+    private final NaturesPayload naturesPayload;
 
     @Override
-    public Mono<ResponseEntity<Orientation>> create(OrientationCreatedCommand command) {
+    public Mono<ResponseEntity<?>> create(OrientationCreatedCommand command) {
         return orientationPayload.getOrientationCode().flatMap(code -> {
                     // Déterminer le nom de la ligne en fonction du natureCode
                     String lineName = "";
@@ -42,7 +42,8 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
                     } else if ("OL003".equals(command.orientationLineCode())) {
                         lineName = "MOTO";
                     }
-
+                    ValidationCommand validationCommand=  new ValidationCommand(
+                            command.receiptNo(), command.tinNo(), command.plateNo(),command.chassisNo(),command.userCode());
                     Orientation o = Orientation.builder()
                             .orientationId(UUID.randomUUID().toString())
                             .orientationCode(code)
@@ -66,13 +67,11 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
                             .vehicleType(command.vehicleType())
                             .build();
 
-                    return orientationRepository.save(o)
+                    return orientationRepository.save(o).then(naturesPayload.validOrientation(validationCommand))
+                            .map(co -> ResponseEntity.status(HttpStatus.CREATED).body(co))
                             .map(saved -> ResponseEntity.status(HttpStatus.CREATED).body(saved));
-                }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()))
-                .onErrorResume(ex -> {
-                    log.error("Error creating orientation: ", ex);
-                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
                 });
+                
     }
 //
 //    @Override
