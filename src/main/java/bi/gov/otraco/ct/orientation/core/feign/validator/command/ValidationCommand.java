@@ -6,24 +6,23 @@ import jakarta.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public record ValidationCommand(
-        @NotNull(message = "Receipt No must not be null")
-        @Pattern(regexp = "^[A-Za-z0-9-]{3,20}$", message = "Receipt No must have 3 to 20 characters")
+        @NotNull(message = "Ce champ est obligatoire")
+        @Pattern(regexp = "^(?=.*\\p{L})[\\p{L}0-9 ()/'-]{2,50}$", message = "Ce champ doit contenir entre 2 et 50 lettres (espaces, apostrophes et tirets autorisés, mais pas de chiffres).")
         String receiptNo,
 
-        @NotNull(message = "Tin No must not be null")
-        @Pattern(regexp = "^[0-9]{3,20}$", message = "Tin No must have 3 to 20 characters, numbers only")
+        @NotNull(message = "Ce champ est obligatoire")
+        @Pattern(regexp = "^[0-9]{3,20}$", message = "Tin No doit avoir 3 to 20 caracteres")
         String ownerTinNo,
 
-        @NotNull(message = "Plate No must not be null")
-        @Pattern(regexp = "^[A-Z0-9]{3,8}$", message = "Plate No must have 3 to 8 characters")
+        @NotNull(message = "Ce champ est obligatoire")
+        @Pattern(regexp = "^[A-Z0-9]{6,12}$", message = "PlateNo must have 6 to 12 characters, uppercase letters and numbers only")
         String plateNo,
 
-        @NotNull(message = "Chassis No must not be null")
-        @Pattern(regexp = "^[A-Z0-9- *]{5,}$", message = "Chassis No must have 3 to 20 characters")
+        @NotNull(message = "Ce champ est obligatoire")
+        @Pattern(regexp = "^(?=.*\\p{L})[\\p{L}0-9 ()/'-]{2,50}$", message = "Ce champ doit contenir entre 2 et 50 lettres (espaces, apostrophes et tirets autorisés, mais pas de chiffres).")
         String chassisNo,
 
-        @NotNull(message = "User must not be null")
-        @Pattern(regexp = "^[A-Z0-9]{3,90}$", message = "User must have 3 to 90 characters")
+        @NotNull(message = "Ce champ est obligatoire")
+        @Pattern(regexp = "^[A-Z0-9]{6,12}$", message = "User Code must have 6 to 12 characters, uppercase letters and numbers only")
         String user
-) implements Serializable {
-}
+) implements Serializable {}

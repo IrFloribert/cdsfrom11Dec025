@@ -67,28 +67,14 @@ public class OrientationEventHandlerImpl implements OrientationEventHandler {
                             .vehicleType(command.vehicleType())
                             .build();
 
-                    return orientationRepository.save(o).then(naturesPayload.validOrientation(validationCommand))
+                    return orientationRepository.save(o)
+//                            .then(naturesPayload.validOrientation(validationCommand))
                             .map(co -> ResponseEntity.status(HttpStatus.CREATED).body(co))
                             .map(saved -> ResponseEntity.status(HttpStatus.CREATED).body(saved));
                 });
                 
     }
-//
-//    @Override
-//    public Mono<ResponseEntity<Orientation>> updateTowardsCombo(OrientationUpdatedComboCommand command) {
-//        return orientationRepository.findByOrientationCode(command.qr()).flatMap(o -> {
-//
-//                    o.setOrientationLineCode(command.lineCode());
-//                    if (Objects.equals(command.lineCode(), "OL001"))
-//                        o.setOrientationLineName("LMV");
-//                    if (Objects.equals(command.lineCode(), "OL002"))
-//                        o.setOrientationLineName("COMBO");
-//                    if (Objects.equals(command.lineCode(), "OL003"))
-//                        o.setOrientationLineName("MOTO");
-//                    return orientationRepository.save(o).map(saved -> ResponseEntity.ok().body(saved));
-//                }).switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()))
-//                .onErrorResume(ex -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
-//    }
+
 
 
     @Override

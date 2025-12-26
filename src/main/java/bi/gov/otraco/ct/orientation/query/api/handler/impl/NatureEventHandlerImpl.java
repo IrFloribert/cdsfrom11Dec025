@@ -30,9 +30,9 @@ public class NatureEventHandlerImpl implements NatureEventHandler {
     public Mono<ResponseEntity<MessageResponse>> create1(NatureCreatedCommand command) {
         return naturePayload.getNatureCode().flatMap(code -> {
             // Vérification de l'unicité avant la création
-            return naturerepository.existsByChassisNoOrPlateNo(command.chassisNo(), command.plateNo())
+            return naturerepository.existsByChassisNoAndPlateNo(command.chassisNo(), command.plateNo())
                     .flatMap(exists -> {
-                        if (exists) {
+                        if (Boolean.TRUE.equals(exists)) {
                             return Mono.just(ResponseEntity
                                     .status(HttpStatus.CONFLICT)
                                     .body(new MessageResponse(false,

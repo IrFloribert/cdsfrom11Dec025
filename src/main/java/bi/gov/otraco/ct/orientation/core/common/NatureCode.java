@@ -1,6 +1,6 @@
 package bi.gov.otraco.ct.orientation.core.common;
 
-public class NAtureCode {
+public class NatureCode {
     public static String generate(String lastCode) {
         char[] chars = lastCode.toCharArray();
         StringBuilder sb = new StringBuilder();

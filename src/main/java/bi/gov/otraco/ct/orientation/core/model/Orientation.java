@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Orientation {
 
     @Id
-    @Field("orientation_id")    private String orientationId;
+    private String orientationId;
     @Field("orientation_code")    private String orientationCode;
     @Field("receipt_no")    private String receiptNo;
     @Field("payment_no")    private String paymentNo;

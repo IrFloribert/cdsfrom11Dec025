@@ -2,7 +2,7 @@ package bi.gov.otraco.ct.orientation.core.payload.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationCreatedCommand;
 import bi.gov.otraco.ct.orientation.cmd.api.command.OrientationUpdatedComboCommand;
-import bi.gov.otraco.ct.orientation.core.common.OrientationModelCode;
+import bi.gov.otraco.ct.orientation.core.common.OrientationCode;
 import bi.gov.otraco.ct.orientation.core.payload.OrientationPayload;
 import bi.gov.otraco.ct.orientation.query.api.repository.OrientationRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class OrientationPayloadImpl implements OrientationPayload {
     public Mono<String> getOrientationCode() {
         return repository.count().flatMap(count -> {
             if (count == 0) return Mono.just("OR30000000001");
-            return repository.findByOrientationCodeDesc().take(1).single().map(last -> OrientationModelCode.generate(last.getOrientationCode()));
+            return repository.findByOrientationCodeDesc().take(1).single().map(last -> OrientationCode.generate(last.getOrientationCode()));
         });
     }
 

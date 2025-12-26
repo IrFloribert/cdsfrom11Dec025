@@ -1,7 +1,8 @@
 package bi.gov.otraco.ct.orientation.core.payload.impl;
 
 import bi.gov.otraco.ct.orientation.cmd.api.command.NatureCreatedCommand;
-import bi.gov.otraco.ct.orientation.core.common.NAtureCode;
+import bi.gov.otraco.ct.orientation.cmd.api.command.NatureUpdateCommand;
+import bi.gov.otraco.ct.orientation.core.common.NatureCode;
 import bi.gov.otraco.ct.orientation.core.dto.FieldsValidatorResponse;
 import bi.gov.otraco.ct.orientation.core.dto.MessageResponse;
 import bi.gov.otraco.ct.orientation.core.exception.RemoteApiException;
@@ -27,6 +28,16 @@ public class NaturesPayloadImpl implements NaturesPayload {
     private final NatureRepository repository;
 
     @Override
+    public Mono<Boolean> exist(NatureCreatedCommand command) {
+        return repository.existsByReceiptNoAndChassisNoOrPlateNo(command.receiptNo(),
+                command.chassisNo(), command.plateNo());
+    }
+    @Override
+    public Mono<Boolean> existUp(NatureUpdateCommand command) {
+        return repository.existsByReceiptNoAndChassisNoOrPlateNo(command.receiptNo(),
+                command.chassisNo(), command.plateNo());
+    }
+    @Override
     public Mono<Void> createException(NatureCreatedCommand cmd) {
         return validateChassisNumber(cmd.chassisNo()).then(validatePlateNumber(cmd.plateNo())).then(validateReceiptNumber(cmd.receiptNo())).then();
     }
@@ -48,13 +59,13 @@ public class NaturesPayloadImpl implements NaturesPayload {
     public Mono<String> getNatureCode() {
         return repository.count().flatMap(count -> {
             if (count == 0) return Mono.just("NT30000000001");
-            return repository.findByLogCreatedDesc().take(1).single().map(last -> NAtureCode.generate(last.getCode()));
+            return repository.findByLogCreatedDesc().take(1).single().map(last -> NatureCode.generate(last.getCode()));
         });
     }
 
 
 
-    WebClient webClientValidNature = WebClient.builder().baseUrl("http://192.168.80.22:8025").build();
+    WebClient webClientValidNature = WebClient.builder().baseUrl("http://192.168.80.23:8025").build();
     @Override
     public Mono<MessageResponse> validNature(ValidationCommand command) {
         return webClientValidNature.put()
@@ -69,7 +80,7 @@ public class NaturesPayloadImpl implements NaturesPayload {
     }
 
 
-    WebClient webClientValidOrientation = WebClient.builder().baseUrl("http://192.168.80.22:8025").build();
+    WebClient webClientValidOrientation = WebClient.builder().baseUrl("http://192.168.80.23:8025").build();
     @Override
     public Mono<?> validOrientation(ValidationCommand command) {
         return webClientValidOrientation.put()

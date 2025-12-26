@@ -10,6 +10,9 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface NatureRepository extends ReactiveMongoRepository<Nature, String> {
+    Mono<Boolean> existsByReceiptNoAndChassisNoOrPlateNo(@Param("receiptNo") String receiptNo,
+                                                         @Param("chassisNo") String chassisNo,
+                                                         @Param("plateNo") String plateNo);
     Mono<Boolean> existsByChassisNo(@Param("chassisNo") String chassisNo);
     Mono<Nature> findByChassisNo(@Param("chassisNo") String chassisNo);
     Mono<Nature> findByPlateNo(@Param("plateNo") String plateNo);
@@ -19,6 +22,6 @@ public interface NatureRepository extends ReactiveMongoRepository<Nature, String
     Mono<Nature> findByCode(@Param("natureCode") String code);
     Mono<Boolean> existsByReceiptNo(@Param("receiptNo") String receiptNo);
     Mono<Nature> findByReceiptNo(@Param("receiptNo") String receiptNo);
-    Mono<Boolean> existsByChassisNoOrPlateNo(@Param("chassisNo") String chassisNo, @Param("plateNo") String plateNo);
+    Mono<Boolean> existsByChassisNoAndPlateNo(@Param("chassisNo") String chassisNo, @Param("plateNo") String plateNo);
     Mono<Nature> findByPlateNoAndOwnerTinNoAndChassisNo( @Param("plateNo") String plateNo,@Param("tin") String tin,@Param("chassisNo") String chassisNo);
 }

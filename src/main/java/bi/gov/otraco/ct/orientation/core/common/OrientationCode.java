@@ -1,6 +1,6 @@
 package bi.gov.otraco.ct.orientation.core.common;
 
-public class OrientationModelCode {
+public class OrientationCode {
     public static String generate(String lastCode) {
         char[] chars = lastCode.toCharArray();
         StringBuilder sb = new StringBuilder();
